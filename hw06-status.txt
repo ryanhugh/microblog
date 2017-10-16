@@ -1,0 +1,46 @@
+CS4550 Web Dev, Fall 2017.
+
+HW06 status report form.
+
+Please answer the following questions and submit the filled-in file to Bottlenose.
+
+
+1. What's your name?
+
+Ryan Hughes
+
+
+2. What's the link to your Github repo's releases page?
+
+https://github.com/ryanhugh/microblog/releases
+
+
+3. What's the link to your deployed Microblog app?
+
+microblog.courseboard.io
+
+
+4. What's the link to the Travis CI build for the version of your app
+   that you made a release of? You can find this on Travis under "Build History".
+
+
+https://travis-ci.org/ryanhugh/microblog/builds
+
+5. Did you successfully deploy? If not, what doesn't work?
+
+
+yes. Everything works. A user is able to sign in and create a post. If another user is watching the posts list when a user creates a post, the post will be 
+automatically added to the top of the list. 
+
+6. Did you successfully implement live updates? If not, what doesn't work?
+
+Yes. Live updates work. 
+
+7. Did Prof. Tuck give you any alternate / additional goals for this assignment?
+   If so, what were they and how well did you complete them with your submission?
+
+Nope. 
+
+8. Is there any other useful information that you want to provide for grading?
+
+Nope.
