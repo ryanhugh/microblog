@@ -29,4 +29,6 @@
   </tbody>
 </table>
 
+<%= if @current_user do %>
 <span><%= link "New Post", to: post_path(@conn, :new) %></span>
+<% end %>
