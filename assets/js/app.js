@@ -22,7 +22,7 @@ import socket from "./socket"
 
 let handlebars = require("handlebars");
 
-$(function() {
+$(function () {
   if (!$("#likes-template").length > 0) {
     return;
   }
@@ -46,7 +46,7 @@ $(function() {
       console.log(data);
       likesData = data;
 
-      likeMap={}
+      likeMap = {}
 
       for (var i = 0; i < data.data.length; i++) {
         likeMap[data.data[i].user_email] = data.data[i]
@@ -55,21 +55,23 @@ $(function() {
       data.data = Object.values(likeMap)
 
       if (likeMap[window.currUserEmail]) {
-       $("#unlike-button").show()
-      $("#like-add-button").hide() 
+        $("#unlike-button").show()
+        $("#like-add-button").hide()
       }
       else {
         $("#unlike-button").hide()
         $("#like-add-button").show()
       }
 
-      let html = tmpl(data); 
+      let html = tmpl(data);
       dd.html(html);
     }
 
     $.ajax({
       url: path,
-      data: {liked_post_id: p_id},
+      data: {
+        liked_post_id: p_id
+      },
       contentType: "application/json",
       dataType: "json",
       method: "GET",
@@ -78,7 +80,12 @@ $(function() {
   }
 
   function add_like() {
-    let data = {like: {liked_post_id: p_id, user_id: u_id}};
+    let data = {
+      like: {
+        liked_post_id: p_id,
+        user_id: u_id
+      }
+    };
 
 
     $("#like-add-button").hide()
@@ -116,4 +123,95 @@ $(function() {
   $("#unlike-button").click(delete_like)
 
   fetch_likes();
+
+
 });
+
+
+
+
+
+
+
+
+
+// Update the posts with the hash tag
+
+function parseTags(body) {
+  return body.match(/#\w+/gi)
+}
+
+var element = $('#tagFilter')
+
+function updateHomepageWithTags() {
+  var rows = $('body > div > div > div > table > tbody > tr')
+
+  if (!rows) {
+    return;
+  }
+  element.hide()
+
+  for (var i = 0; i < rows.length; i++) {
+
+    var body = $('.content', rows[i]).html()
+    var tags = parseTags(body)
+    // debugger
+    if (!tags) {
+      continue;
+    }
+    // debugger
+
+    // go through and replace every instance of a tag with a link to that tag
+    let htmlOfTags = []
+
+    for (var j = 0; j < tags.length; j++) {
+      var tag = tags[j]
+
+      body = body.replace(tag, '<a href="#" class="tag" onclick="filter(\''+tag+'\')">' + tag + '</a>')
+    }
+
+    console.log(body)
+
+    $('.content', rows[i]).html(body)
+  }
+}
+
+var filtering= false
+
+window.filter = function(tag) {
+
+  // hide the filter
+  if (filtering) {
+    location.reload()
+  }
+  else {
+    element.show()
+
+    $("#filterNameHere").html(tag)
+
+    var rows = $('body > div > div > div > table > tbody > tr')
+
+    if (!rows) {
+      return;
+    }
+
+    for (var i = 0; i < rows.length; i++) {
+        var body = $('.content', rows[i]).html()
+        if (!body.includes(tag)) {
+          $(rows[i]).hide()
+        }
+    }
+
+
+  }
+
+  filtering = !filtering
+
+  console.log('jflasjf')
+}
+
+
+if (location.pathname === '/posts') {
+  $(updateHomepageWithTags);
+}
+// // debugger
