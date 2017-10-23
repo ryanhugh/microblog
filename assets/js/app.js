@@ -140,10 +140,49 @@ $(function () {
 function parseTags(body) {
   return body.match(/#\w+/gi)
 }
+function parseMentions(body) {
+  return body.match(/@\w+/gi)
+}
 
 var element = $('#tagFilter')
 
-function updateHomepageWithTags() {
+
+function getusernameToId(callback) {
+    $.ajax({
+      url: '/users',
+      success: function(resp) {
+        
+        console.log(resp)
+
+        let usernamesElements = $('div:nth-child(2) > div > table > tbody > tr > td:nth-child(4)', $(resp)[19])
+        let usernames = [];
+        for (var i = 0; i < usernamesElements.length; i++) {
+          usernames.push(usernamesElements[i].innerText)
+        }
+
+
+        let ids = []
+        let hrefs = $('div:nth-child(2) > div > table > tbody > tr > td:nth-child(6) > span:nth-child(1) > a', $(resp)[19])
+
+        for (var i = 0; i < hrefs.length; i++) {
+          ids.push(hrefs[i].getAttribute('href').split('/')[2])
+        }
+
+        console.log(ids, usernames)
+
+        let map = {}
+        for (var i = 0; i < ids.length; i++) {
+          map[usernames[i]] = ids[i]
+        }
+
+        updateHomepageWithTags(map)
+      }
+    });
+}
+
+
+
+function updateHomepageWithTags(map) {
   var rows = $('body > div > div > div > table > tbody > tr')
 
   if (!rows) {
@@ -154,20 +193,26 @@ function updateHomepageWithTags() {
   for (var i = 0; i < rows.length; i++) {
 
     var body = $('.content', rows[i]).html()
-    var tags = parseTags(body)
-    // debugger
-    if (!tags) {
-      continue;
-    }
-    // debugger
+    var tags = parseTags(body) || []
+    var mentions = parseMentions(body) || []
 
     // go through and replace every instance of a tag with a link to that tag
-    let htmlOfTags = []
 
     for (var j = 0; j < tags.length; j++) {
       var tag = tags[j]
 
       body = body.replace(tag, '<a href="#" class="tag" onclick="filter(\''+tag+'\')">' + tag + '</a>')
+    }
+
+    console.log(body)
+    for (var j = 0; j < mentions.length; j++) {
+      var mention = mentions[j]
+
+      if (!map[mention.slice(1)]) {
+        continue;
+      }
+
+      body = body.replace(mention, '<a href="/users/' + map[mention.slice(1)] + '" class="mention">' + mention + '</a>')
     }
 
     console.log(body)
@@ -201,17 +246,13 @@ window.filter = function(tag) {
           $(rows[i]).hide()
         }
     }
-
-
   }
 
   filtering = !filtering
-
-  console.log('jflasjf')
 }
 
 
 if (location.pathname === '/posts') {
-  $(updateHomepageWithTags);
+  $(getusernameToId);
 }
 // // debugger
