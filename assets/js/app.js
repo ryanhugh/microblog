@@ -215,8 +215,6 @@ function updateHomepageWithTags(map) {
       body = body.replace(mention, '<a href="/users/' + map[mention.slice(1)] + '" class="mention">' + mention + '</a>')
     }
 
-    console.log(body)
-
     $('.content', rows[i]).html(body)
   }
 }
