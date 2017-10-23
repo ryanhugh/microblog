@@ -73,6 +73,6 @@ defmodule MicroblogWeb.SessionController do
     |> put_session(:user_id, nil)
     |> put_session(:cart_id, nil)
     |> put_flash(:info, "Logged out.")
-    |> redirect(to: post_path(conn, :index))
+    |> redirect(to: user_path(conn, :new))
   end
 end

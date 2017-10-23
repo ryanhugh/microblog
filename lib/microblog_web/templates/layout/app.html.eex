@@ -24,6 +24,7 @@
 
       <div class="collapse navbar-collapse" id="main-navbar">
         <ul class="navbar-nav mr-auto">
+            <%= if @current_user do %>
           <li class="nav-item">
         <%= link "Posts", to: post_path(@conn, :index), class: "nav-link" %>
     </li>
@@ -31,6 +32,7 @@
               <%= link "Users", to: user_path(@conn, :index), class: "nav-link" %>
 
           </li>
+          <% end %>
         </ul>
       </div>
 

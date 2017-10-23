@@ -17,7 +17,7 @@
     <%= error_tag f, :title %>
   </div>
 
-  <div>In order to tag a user you must specify the user with their user ID. You can find the user ID on the users page. For example: @4</div>
+  <div>You may tag a user by their username. For instance: @ryanhughes624. You can also create tags. For example: #tag. You can also add text in markdown.</div>
   <br>
   <div class="form-group">
     <%= label f, :content, class: "control-label" %>

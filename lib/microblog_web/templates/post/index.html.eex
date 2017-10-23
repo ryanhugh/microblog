@@ -1,5 +1,10 @@
 <h2>Feed/Dashboard page</h2>
 
+<div style="border: 1px solid #777777;padding: 6px;border-radius: 8px;">
+
+<%= render "form.html", Map.put(assigns, :action, post_path(@conn, :create)) %>
+</div>
+
 <style type="text/css">
   #tagFilter  {
     padding: 15px;
