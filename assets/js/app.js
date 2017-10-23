@@ -199,14 +199,14 @@ function updateHomepageWithTags(map) {
 
     // go through and replace every instance of a tag with a link to that tag
 
-    let tags = ''
+    let endings = ''
 
 
     for (var j = 0; j < tags.length; j++) {
       var tag = tags[j]
 
       body = body.replace(tag, '')
-      tags += '<a href="#" class="tag" onclick="filter(\''+tag+'\')">' + tag + '</a>'
+      endings += '<a href="#" class="tag" onclick="filter(\''+tag+'\')">' + tag + '</a>   '
     }
 
     console.log(body)
@@ -220,10 +220,10 @@ function updateHomepageWithTags(map) {
       }
 
       body = body.replace(mention, '')
-      tags += '<a href="/users/' + map[mention.slice(1)] + '" class="mention">' + mention + '</a>  '
+      endings += '<a href="/users/' + map[mention.slice(1)] + '" class="mention">' + mention + '</a>  '
     }
 
-    body = markdown.markdown.toHTML(body) + tags
+    body = markdown.markdown.toHTML(body) + endings
 
     $('.content', rows[i]).html(body)
   }
