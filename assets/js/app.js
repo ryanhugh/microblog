@@ -12,6 +12,7 @@
 // If you no longer want to use a dependency, remember
 // to also remove its path from "config.paths.watched".
 import "phoenix_html"
+import markdown from "markdown"
 
 // Import local files
 //
@@ -198,13 +199,19 @@ function updateHomepageWithTags(map) {
 
     // go through and replace every instance of a tag with a link to that tag
 
+    let tags = ''
+
+
     for (var j = 0; j < tags.length; j++) {
       var tag = tags[j]
 
-      body = body.replace(tag, '<a href="#" class="tag" onclick="filter(\''+tag+'\')">' + tag + '</a>')
+      body = body.replace(tag, '')
+      tags += '<a href="#" class="tag" onclick="filter(\''+tag+'\')">' + tag + '</a>'
     }
 
     console.log(body)
+
+
     for (var j = 0; j < mentions.length; j++) {
       var mention = mentions[j]
 
@@ -212,8 +219,11 @@ function updateHomepageWithTags(map) {
         continue;
       }
 
-      body = body.replace(mention, '<a href="/users/' + map[mention.slice(1)] + '" class="mention">' + mention + '</a>')
+      body = body.replace(mention, '')
+      tags += '<a href="/users/' + map[mention.slice(1)] + '" class="mention">' + mention + '</a>  '
     }
+
+    body = markdown.markdown.toHTML(body) + tags
 
     $('.content', rows[i]).html(body)
   }
