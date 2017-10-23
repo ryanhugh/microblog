@@ -16,7 +16,8 @@
     <tr>
       <td><%= user.name %></td>
       <td><%= user.email %></td>
-      <td><%= user.username %></td>
+      <td class="usernameTD"><%= user.username %></td>
+      <td class="idTD" style="display:none"><%= user.id %></td>
       <td>
 
         <form action="/followings" method="post">

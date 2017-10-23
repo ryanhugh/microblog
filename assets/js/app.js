@@ -155,7 +155,7 @@ function getusernameToId(callback) {
         
         console.log(resp)
 
-        let usernamesElements = $('div:nth-child(2) > div > table > tbody > tr > td:nth-child(4)', $(resp)[19])
+        let usernamesElements = $('.usernameTD', $(resp)[19])
         let usernames = [];
         for (var i = 0; i < usernamesElements.length; i++) {
           usernames.push(usernamesElements[i].innerText)
@@ -163,10 +163,10 @@ function getusernameToId(callback) {
 
 
         let ids = []
-        let hrefs = $('div:nth-child(2) > div > table > tbody > tr > td:nth-child(6) > span:nth-child(1) > a', $(resp)[19])
+        let idElements = $('.idTD', $(resp)[19])
 
-        for (var i = 0; i < hrefs.length; i++) {
-          ids.push(hrefs[i].getAttribute('href').split('/')[2])
+        for (var i = 0; i < idElements.length; i++) {
+          ids.push(idElements[i].innerText)
         }
 
         console.log(ids, usernames)
@@ -184,6 +184,7 @@ function getusernameToId(callback) {
 
 
 function updateHomepageWithTags(map) {
+  debugger
   var rows = $('body > div > div > div > table > tbody > tr')
 
   if (!rows) {
