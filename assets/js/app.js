@@ -184,7 +184,6 @@ function getusernameToId(callback) {
 
 
 function updateHomepageWithTags(map) {
-  debugger
   var rows = $('body > div > div > div > table > tbody > tr')
 
   if (!rows) {
@@ -265,3 +264,10 @@ if (location.pathname === '/posts') {
   $(getusernameToId);
 }
 // // debugger
+
+
+
+window.nothing = function () {
+  debugger
+  return false;
+}

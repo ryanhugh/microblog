@@ -24,7 +24,9 @@
           <input type="text" name="follower" style="display:none" value="@user.username">
           <input type="text" name="following" style="display:none" value="">
           <input name="_csrf_token" type="hidden" value="HREHMWc8Px0hA103WDwjFCh0TUcgNgAAwRFtTDzSwd/x9vyUDC84ug==">
-          <input type="submit" value="Follow" onsubmit="onFollow">
+          <%# <input type="submit" value="Follow" onclick="nothing(this)"> %>
+          <button type="button" class="btn btn-primary">Follow</button>
+
         </form> 
 
       </td>
