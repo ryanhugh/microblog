@@ -5,9 +5,9 @@ defmodule Microblog.BlogTest do
   describe "users" do
     alias Microblog.Blog.User
 
-    @valid_attrs %{email: "some email", name: "some name", passwordHash: "some passwordHash", username: "some username"}
-    @update_attrs %{email: "some updated email", name: "some updated name", passwordHash: "some updated passwordHash", username: "some updated username"}
-    @invalid_attrs %{email: nil, name: nil, passwordHash: nil, username: nil}
+    @valid_attrs %{email: "some email", name: "some name", password_hash: "some password_hash", username: "some username"}
+    @update_attrs %{email: "some updated email", name: "some updated name", password_hash: "some updated password_hash", username: "some updated username"}
+    @invalid_attrs %{email: nil, name: nil, password_hash: nil, username: nil}
 
     def user_fixture(attrs \\ %{}) do
       {:ok, user} =
@@ -32,7 +32,7 @@ defmodule Microblog.BlogTest do
       assert {:ok, %User{} = user} = Blog.create_user(@valid_attrs)
       assert user.email == "some email"
       assert user.name == "some name"
-      assert user.passwordHash == "some passwordHash"
+      assert user.password_hash == "some password_hash"
       assert user.username == "some username"
     end
 
@@ -46,7 +46,7 @@ defmodule Microblog.BlogTest do
       assert %User{} = user
       assert user.email == "some updated email"
       assert user.name == "some updated name"
-      assert user.passwordHash == "some updated passwordHash"
+      assert user.password_hash == "some updated password_hash"
       assert user.username == "some updated username"
     end
 

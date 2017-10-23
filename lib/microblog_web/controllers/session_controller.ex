@@ -37,8 +37,8 @@ defmodule MicroblogWeb.SessionController do
     # IO.puts email
     # IO.puts password
     # IO.puts user.password
-    # IO.puts user.passwordHash
-    # IO.puts %{"password_hash" => user.passwordHash, password => password}
+    # IO.puts user.password_hash
+    # IO.puts %{"password_hash" => user.password_hash, password => password}
 
 
 
