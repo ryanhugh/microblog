@@ -10,6 +10,7 @@ defmodule Microblog.Blog.User do
     field :email, :string
     field :name, :string
     field :passwordHash, :string
+    field :password, :string, virtual: true
     field :username, :string
 
     timestamps()
@@ -18,9 +19,9 @@ defmodule Microblog.Blog.User do
   @doc false
   def changeset(%User{} = user, attrs) do
     user
-    |> cast(attrs, [:name, :passwordHash, :email, :username])
-    |> validate_confirmation(:passwordHash)
-    |> validate_password(:passwordHash)
+    |> cast(attrs, [:name, :password, :email, :username])
+    # |> validate_confirmation(:password)
+    |> validate_password(:password)
     |> put_pass_hash()
     |> validate_required([:name, :passwordHash, :email, :username])
   end
@@ -37,7 +38,13 @@ defmodule Microblog.Blog.User do
   end
 
   def put_pass_hash(%Ecto.Changeset{valid?: true, changes: %{password: password}} = changeset) do
-    change(changeset, Comeonin.Argon2.add_hash(password))
+    change(changeset, Comeonin.Argon2.add_hash(password, hash_key: :passwordHash))
+
+    # IO.puts changeset   IO.puts Comeonin.Argon2.add_hash(password).password_hash
+    # # IO.puts %{"passwordHash" => Comeonin.Argon2.add_hash(password).password_hash}
+    # change(changeset, %{"passwordHash" => Comeonin.Argon2.add_hash(password).password_hash})
+    # IO.puts changeset
+    
   end
   def put_pass_hash(changeset), do: changeset
 

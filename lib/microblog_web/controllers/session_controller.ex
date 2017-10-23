@@ -34,7 +34,14 @@ defmodule MicroblogWeb.SessionController do
   # TODO: Move to user.ex
   def get_and_auth_user(email, password) do
     user = Accounts.get_user_by_email(email)
-    IO.puts user
+    # IO.puts email
+    # IO.puts password
+    # IO.puts user.password
+    # IO.puts user.passwordHash
+    # IO.puts %{"password_hash" => user.passwordHash, password => password}
+
+
+
     # user = throttle_attempts(user)
     case Comeonin.Argon2.check_pass(user, password) do
       {:ok, user} -> user
